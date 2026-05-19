@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import BrandNew from "./BrandNew";
 import CustomarReviews from "./CustomarReviews";
+import FAQSection from "./FAQSection";
 import HowitWorks from "./HowitWorks";
 import MerchantCTA from "./MerchantCTA";
 import OurServices from "./OurServices";
@@ -18,6 +19,7 @@ const Home = () => {
       <ParcelTracking></ParcelTracking>
       <MerchantCTA></MerchantCTA>
       <CustomarReviews reviews={reviesPromise}></CustomarReviews>
+      <FAQSection></FAQSection>
     </div>
   );
 };
