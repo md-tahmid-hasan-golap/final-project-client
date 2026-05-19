@@ -10,7 +10,7 @@ import Banner3 from "../../src/assets/banner/banner3.png";
 
 const Banner = () => {
   return (
-    <div className="w-full my-7">
+    <div className="w-full py-7">
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={30}
