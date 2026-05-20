@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "./AuthContext";
+import axios from "axios";
 
 const Register = () => {
-  const { signUpUser, signInWithGoogle } = useContext(AuthContext);
+  const { signUpUser, signInWithGoogle, updateProfileUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -15,9 +17,30 @@ const Register = () => {
   } = useForm();
 
   const handelRegister = (data) => {
+    console.log(data);
+    const photo = data.photo[0];
+    // console.log("This is my Photo", photo);
     signUpUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+
+        const formData = new FormData();
+        formData.append("image", photo);
+        const imageURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_kye}`;
+        axios.post(imageURL, formData).then((res) => {
+          console.log("your photo upload", res.data.data.url);
+          const userProfile = {
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+          updateProfileUser(userProfile)
+            .then(() => {
+              console.log("Your Profile is Done");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
 
         Swal.fire({
           title: "Registration Success!",
@@ -95,6 +118,26 @@ const Register = () => {
           {errors.name && (
             <p className="text-red-500 text-xs font-medium mt-0.5">
               Name is required
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs sm:text-sm font-semibold text-gray-700">
+            Photo
+          </label>
+          <input
+            type="file"
+            {...register("photo", { required: true })}
+            className={`w-full bg-[#F2F4F7] file-input text-gray-800 px-4 py-2.5 rounded-xl text-sm outline-none border transition-all ${
+              errors.photo
+                ? "border-red-500 focus:border-red-500"
+                : "border-transparent focus:border-[#033133]/20"
+            }`}
+            placeholder="Photo"
+          />
+          {errors.photo && (
+            <p className="text-red-500 text-xs font-medium mt-0.5">
+              Photo is required
             </p>
           )}
         </div>

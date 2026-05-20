@@ -4,7 +4,6 @@ import Home from "../components/Home";
 import Coverage from "../components/Coverage";
 import AuthLayouts from "../Layouts/AuthLayouts";
 import Login from "../Auth/Login";
-import { register } from "swiper/element";
 import Register from "../Auth/Register";
 
 const router = createBrowserRouter([
