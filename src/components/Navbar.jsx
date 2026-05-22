@@ -50,6 +50,16 @@ const Navbar = () => {
           Coverage
         </NavLink>
       </li>
+      <li className="mr-2">
+        <NavLink
+          to="/sendAParcel"
+          className={({ isActive }) =>
+            isActive ? "bg-black text-[#C2EA36]" : ""
+          }
+        >
+          Send A Parcel
+        </NavLink>
+      </li>
     </>
   );
   return (
