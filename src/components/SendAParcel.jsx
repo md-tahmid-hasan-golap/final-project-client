@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../Auth/AuthContext";
 import { useLoaderData } from "react-router";
+import UseAxiusCecure from "./UseAxiusCecure";
+import Swal from "sweetalert2";
 
 const SendAParcel = () => {
   const { user } = useContext(AuthContext);
+  const axiosSecure = UseAxiusCecure();
   const serviceCenters = useLoaderData();
   const singelcenter = serviceCenters.map((c) => c.region);
   const rigions = [...new Set(singelcenter)];
@@ -15,7 +18,28 @@ const SendAParcel = () => {
   } = useForm();
 
   const handelSendAParcel = (data) => {
-    console.log(data);
+    // console.log(data);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to add this parcel?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Add Parcel!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Success!",
+              text: "Parcel added successfully",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (

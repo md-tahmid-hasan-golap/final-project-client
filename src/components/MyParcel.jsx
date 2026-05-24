@@ -1,0 +1,9 @@
+const MyParcel = () => {
+  return (
+    <div>
+      <h2>This is my parcel</h2>
+    </div>
+  );
+};
+
+export default MyParcel;

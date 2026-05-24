@@ -60,6 +60,16 @@ const Navbar = () => {
           Send A Parcel
         </NavLink>
       </li>
+      <li className="mr-2">
+        <NavLink
+          to="/dashboard/myparcel"
+          className={({ isActive }) =>
+            isActive ? "bg-black text-[#C2EA36]" : ""
+          }
+        >
+          My Parcels
+        </NavLink>
+      </li>
     </>
   );
   return (
@@ -97,34 +107,31 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end flex items-center gap-3 sm:gap-4">
+      <div className="navbar-end flex items-center justify-end gap-2 sm:gap-4">
         {user ? (
-          <div className="navbar-end flex items-center gap-3 sm:gap-4">
-            <button
-              onClick={handelLogOut}
-              className="px-4 py-2 border border-red-200 text-red-600 hover:bg-red-50 font-bold text-xs sm:text-sm rounded-xl transition-all duration-200 shadow-sm cursor-pointer"
-            >
-              LogOut
-            </button>
-          </div>
+          <button
+            onClick={handelLogOut}
+            className="px-3 sm:px-4 py-2 border border-red-200 text-red-600 hover:bg-red-50 font-bold text-xs sm:text-sm rounded-xl transition-all duration-200 shadow-sm cursor-pointer whitespace-nowrap"
+          >
+            LogOut
+          </button>
         ) : (
-          <div className="navbar-end flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               to="/signin"
-              className="px-4 sm:px-6 py-2 sm:py-2.5 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 font-medium text-xs sm:text-sm rounded-[12px] sm:rounded-[14px] transition-all duration-200 shadow-sm"
+              className="px-3 sm:px-6 py-2 sm:py-2.5 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 font-medium text-xs sm:text-sm rounded-xl transition-all duration-200 shadow-sm whitespace-nowrap"
             >
               Sign In
             </Link>
 
             <Link
               to="/signup"
-              className="inline-flex items-center gap-2 bg-[#C2EA36] hover:bg-[#b3d92b] text-[#033133] font-bold text-xs sm:text-sm pl-4 sm:pl-5 pr-1.5 py-1.5 rounded-[14px] sm:rounded-[16px] transition-all duration-200 group shadow-sm"
+              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#C2EA36] hover:bg-[#b3d92b] text-[#033133] font-bold text-xs sm:text-sm pl-3 sm:pl-5 pr-1 sm:pr-1.5 py-1 sm:py-1.5 rounded-xl transition-all duration-200 group shadow-sm whitespace-nowrap"
             >
               <span>Sign Up</span>
-
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5 shrink-0">
                 <svg
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 transform -rotate-45"
+                  className="w-3 h-3 sm:w-4 sm:h-4 transform -rotate-45"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
