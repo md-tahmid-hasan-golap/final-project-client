@@ -6,16 +6,25 @@ import UseAxiusCecure from "./UseAxiusCecure";
 import Swal from "sweetalert2";
 
 const SendAParcel = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const { user } = useContext(AuthContext);
   const axiosSecure = UseAxiusCecure();
   const serviceCenters = useLoaderData();
   const singelcenter = serviceCenters.map((c) => c.region);
   const rigions = [...new Set(singelcenter)];
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const senderRigion = watch("senderRegion");
+  const receverRegion = watch("receverRegion");
+
+  const districtByRigion = (rigions) => {
+    const district = serviceCenters.filter((c) => c.region === rigions);
+    const districts = district.map((d) => d.district);
+    return districts;
+  };
 
   const handelSendAParcel = (data) => {
     // console.log(data);
@@ -180,7 +189,7 @@ const SendAParcel = () => {
                 )}
               </fieldset>
 
-              {/* Sender District */}
+              {/* Sender Region */}
               <fieldset className="fieldset ">
                 <legend className="fieldset-legend">Sender Region</legend>
                 <select
@@ -192,6 +201,22 @@ const SendAParcel = () => {
                   {rigions.map((r, index) => (
                     <option key={index} value={r}>
                       {r}
+                    </option>
+                  ))}
+                </select>
+              </fieldset>
+              {/* Sender District */}
+              <fieldset className="fieldset ">
+                <legend className="fieldset-legend">Sender District</legend>
+                <select
+                  {...register("senderDistrict")}
+                  defaultValue="Pick a District"
+                  className="select  w-full"
+                >
+                  <option disabled={true}>Pick a District</option>
+                  {districtByRigion(senderRigion)?.map((d, index) => (
+                    <option key={index} value={d}>
+                      {d}
                     </option>
                   ))}
                 </select>
@@ -290,7 +315,7 @@ const SendAParcel = () => {
                   </p>
                 )}
               </fieldset>
-              {/* Receiver District */}
+              {/* Receiver Region */}
 
               <fieldset className="fieldset ">
                 <legend className="fieldset-legend">Receiver Region</legend>
@@ -303,6 +328,23 @@ const SendAParcel = () => {
                   {rigions.map((r, index) => (
                     <option key={index} value={r}>
                       {r}
+                    </option>
+                  ))}
+                </select>
+              </fieldset>
+              {/* Receiver District */}
+
+              <fieldset className="fieldset ">
+                <legend className="fieldset-legend">Receiver District</legend>
+                <select
+                  {...register("receiverDistrict")}
+                  defaultValue="Pick a District"
+                  className="select  w-full"
+                >
+                  <option disabled={true}>Pick a District</option>
+                  {districtByRigion(receverRegion)?.map((d, index) => (
+                    <option key={index} value={d}>
+                      {d}
                     </option>
                   ))}
                 </select>
